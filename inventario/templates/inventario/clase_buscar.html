@@ -7,7 +7,7 @@
 {% endblock content_title %}
 
 {% block content %}
-<form action="{% url "clase_buscar" %}" method="get">
+{% comment %} <form action="{% url "clase_buscar" %}" method="get"> {% endcomment %}
 
     <table class="table table-light table-striped">
         {{ form.as_table }}

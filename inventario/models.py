@@ -7,7 +7,9 @@ from django.db import models
 class Clase(models.Model): 
     cod_clase = models.CharField(max_length=10)
     nombre = models.CharField(max_length=100)
-
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_modificacion = models.DateTimeField(auto_now=True)
+    
     def __str__(self): # ------------------------------------------->>>> el str define como se mostrara el objeto o que se vera en el Admin de Django.
         return f'{self.cod_clase} - {self.nombre}'
 
@@ -18,6 +20,8 @@ class Clase(models.Model):
 class Marca(models.Model): 
     cod_marca = models.CharField(max_length=10)
     nombre = models.CharField(max_length=100)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_modificacion = models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return f'{self.cod_marca} - {self.nombre}'
@@ -39,6 +43,8 @@ class Modelo(models.Model):
     marca = models.CharField(max_length=100)
     descripcion = models.CharField(max_length=200, blank=True)
     cod_veh = models.CharField(max_length=10)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_modificacion = models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return f'{self.cod_modelo} - {self.cod_veh} - {self.descripcion or 'Sin desc.'}'

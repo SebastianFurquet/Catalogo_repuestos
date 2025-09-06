@@ -10,22 +10,25 @@
 {% block content %}
 
 <a href="{% url "clase_form" %}" class="btn btn-primary mb-3">Agregar Clase</a>
-<a href="{% url "clase_buscar" %}" class="btn btn-primary mb-3">Buscar Clase</a>
+
+<!-- BARRA DE BUSQUEDA-->
+<form action="{% url "clase_list" %}" method='GET'>
+<input type="text" name='busqueda' placeholder='Buscar Clase' type='submit' class='form-control mb-3'>
+</form>
+
+{% comment %} <a href="{% url "clase_buscar" %}" class="btn btn-primary mb-3">Buscar Clase</a>  {% endcomment %}
 
 <table class="table table-light table-striped">
-        <!-- estos son los encabezados de la tabla -->
-        <thead class="table-info"> 
+        <thead class="table-info"> <!-- estos son los encabezados de la tabla -->
             <tr>
                 <th>Cod Clase</th><th>Nombre</th>
             </tr>
         </thead>
-        <!-- Cuerpo de la tabla filas y columnas -->
-        <tbody>
+        <tbody> <!-- Cuerpo de la tabla filas y columnas -->
             {% for clase in clase %}
                 <tr>
                     <td>{{ clase.cod_clase }}</td>
                     <td>{{ clase.nombre }}</td>
-
                 </tr>
             {% empty %}
                 <tr><td colspan="6"> Sin resultados</td></tr>
