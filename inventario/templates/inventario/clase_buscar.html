@@ -1,0 +1,20 @@
+{% extends "inventario/base.html" %}
+
+{% block title %} Busqueda de Clases {% endblock  %}
+
+{% block content_title %}
+<h1>Busqueda</h1>
+{% endblock content_title %}
+
+{% block content %}
+<form action="{% url "clase_buscar" %}" method="get">
+
+    <table class="table table-light table-striped">
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Buscar Clase" class='btn btn-success mt-3'>
+
+</form>
+{% endblock content %}
+
+
