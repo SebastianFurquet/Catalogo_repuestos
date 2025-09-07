@@ -11,7 +11,7 @@ class Clase(models.Model):
     fecha_modificacion = models.DateTimeField(auto_now=True)
     
     def __str__(self): # ------------------------------------------->>>> el str define como se mostrara el objeto o que se vera en el Admin de Django.
-        return f'{self.cod_clase} - {self.nombre}'
+        return f'{self.cod_clase} - {self.nombre} - {self.fecha_creacion} - {self.fecha_modificacion} '
 
 
 # ********************************************************************

@@ -7,6 +7,3 @@ class ClaseForm(forms.ModelForm):
         fields = '__all__' #['cod_clase', 'nombre']
         
 
-class BusquedaClaseForm(forms.Form):
-    cod_clase = forms.CharField(label= 'Cod Clase')
-    #nombre = forms.CharField(label= 'nombre')

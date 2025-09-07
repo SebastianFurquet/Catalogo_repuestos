@@ -9,19 +9,29 @@
 
 {% block content %}
 
-<a href="{% url "clase_form" %}" class="btn btn-primary mb-3">Agregar Clase</a>
+
 
 <!-- BARRA DE BUSQUEDA-->
-<form action="{% url "clase_list" %}" method='GET'>
-<input type="text" name='busqueda' placeholder='Buscar Clase' type='submit' class='form-control mb-3'>
-</form>
+<div class='container'>
+    <div class='row col-6'>
+        <a href="{% url "clase_form" %}" class="btn btn-primary mb-3 col-3">Agregar Clase</a>
+        
+        <form action="{% url "clase_list" %}" method='GET' class='col-9'>
+            <input type="text" name='busqueda' placeholder='Buscar Clase' type='submit' class='form-control mb-3'>
+        </form>
+    </div>
+</div>
 
 {% comment %} <a href="{% url "clase_buscar" %}" class="btn btn-primary mb-3">Buscar Clase</a>  {% endcomment %}
 
-<table class="table table-light table-striped">
+<div class='container'>
+    <div class='row col-6'>
+        <table class="table table-light table-striped">
         <thead class="table-info"> <!-- estos son los encabezados de la tabla -->
             <tr>
-                <th>Cod Clase</th><th>Nombre</th>
+                <th>Cod Clase</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody> <!-- Cuerpo de la tabla filas y columnas -->
@@ -29,13 +39,20 @@
                 <tr>
                     <td>{{ clase.cod_clase }}</td>
                     <td>{{ clase.nombre }}</td>
+                    <td>
+                        <a href="{% url "clase_detail" clase.id %}" class='btn btn-sm btn-info'>Detalle</a>
+                        <a href="{% url 'clase_update' clase.id %}" class='btn btn-sm btn-warning'>Modificar</a>
+                        <a href="{% url "clase_delete" clase.id %}" class='btn btn-sm btn-danger'>Eliminar</a>
+                    </td>
                 </tr>
             {% empty %}
                 <tr><td colspan="6"> Sin resultados</td></tr>
-                
             {% endfor %}
         </tbody>
     </table>
+    </div>
+</div>
+
 
 
 {% endblock content %}
