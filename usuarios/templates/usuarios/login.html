@@ -1,0 +1,44 @@
+{% extends "inventario/base.html" %}
+
+{% block title %} Login {% endblock  %}
+
+{% block content_title %}
+    <div class="container text-center">
+        <h1>Inicio de sesion</h1>
+    </div>
+{% endblock content_title %}
+
+
+
+{% block content %}
+
+
+
+    <div class="container">
+
+        <div class="mt-0 py-2 d-flex flex-column justify-content-center formulario ">
+            
+            <form action="" method="POST" class="text-center login"> <!-- Agregar la clase text-center aquí -->
+
+                {% csrf_token %}
+                <div class="form-group col-md-12 mt-1 d-flex flex-column align-items-center">
+                    <label for="id_username" class="mb-2 ">Nombre de usuario</label>
+                    {{ formulario.username }}
+                </div>
+                <div class="form-group col-md-12 mt-3 d-flex flex-column align-items-center">
+                    <label for="id_password" class="mb-2 ">Contraseña</label>
+                    {{ formulario.password }}
+                </div>
+                <div class="text-center mt-3 btn py-2">
+                    <button type="submit">Ingresar</button>
+                    {% if mensaje %}
+                    <p class="py-2"> <sup>*</sup>{{ mensaje }}</p>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+{% endblock content %}
