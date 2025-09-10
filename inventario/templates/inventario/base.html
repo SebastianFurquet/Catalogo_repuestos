@@ -28,9 +28,24 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url "clase_list" %}">Clases</a>
                 </li>
+
+                <!-- Login / Logout -->
+
+                {% if request.user.is_authenticated  %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url "login" %}">Login</a>
+                    <form action="{% url "logout" %}" method='POST'> <!-- Logout lleva un token -->
+                        {% csrf_token %}
+                        <input type="submit" class="nav-link " style="text-decoration:none;" value= 'Logout'>
+                    </form>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "login" %}">Login</a>  <!-- Login -->
+                </li>
+                {% endif %}
+
+
+
             </ul>
         </div>
     </div>
