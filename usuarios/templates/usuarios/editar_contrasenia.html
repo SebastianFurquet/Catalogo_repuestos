@@ -1,10 +1,10 @@
 {% extends "inventario/base.html" %}
 
-{% block title %} Editar Perfil {% endblock  %}
+{% block title %} Editar Contraseña {% endblock  %}
 
 {% block content_title %}
     <div class="container text-center">
-        <h1>Editar Perfil</h1>
+        <h1>Editar Contraseña</h1>
     </div>
 {% endblock content_title %}
 
@@ -13,29 +13,29 @@
 {% block content %}
 
     <div class="container">
-            <form action="{% url "editar_perfil" %}" method="POST" class="text-center login"> 
+            <form action="{% url "editar_contrasenia" %}" method="POST" class="text-center login "> 
                 {% csrf_token %}
 
                 <div class="form-group col-md-12 mt-1 d-flex flex-column align-items-center">
-                    <label for="id_username" class="mb-2 ">Correo electrónico</label>
-                    {{ formulario.email }}
+                    <label for="id_username" class="mb-2 ">Contraseña Actual:</label>
+                    {{ form.old_password }}
                 </div>
 
                 <div class="form-group col-md-12 mt-1 d-flex flex-column align-items-center">
-                    <label for="id_username" class="mb-2 ">Nombre</label>
-                    {{ formulario.first_name }}
+                    <label for="id_username" class="mb-2 ">Nueva Contraseña:</label>
+                    {{ form.new_password1 }}
                 </div>
-                
+
                 <div class="form-group col-md-12 mt-1 d-flex flex-column align-items-center">
-                    <label for="id_username" class="mb-2 ">Apellido</label>
-                    {{ formulario.last_name }}
+                    <label for="id_username" class="mb-2 ">Confirmar Nueva Contraseña:</label>
+                    {{ form.new_password2 }}
                 </div>
 
                 <div class="text-center mt-3 btn py-2">
                     <button type="submit"class='btn btn-success mt-3'>Guardar Cambios</button>
                 </div>
+
             </form>
     </div>
-
 
 {% endblock content %}

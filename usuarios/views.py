@@ -1,9 +1,11 @@
+from .forms import EditarContraseniaForm
+from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm, UserChangeForm 
 from usuarios.forms import CustomUserCreationForm, EditarPerfilForm
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth.views import LogoutView, PasswordChangeView
 from django.contrib import messages
 
 # Create your views here.
@@ -76,7 +78,7 @@ def perfil(request):
     return render(request, 'usuarios/perfil.html', contexto)
 
 
-
+# <!-- Editar Perfil -->
 
 @login_required
 def editar_perfil(request):
@@ -92,9 +94,12 @@ def editar_perfil(request):
 
 
 
+# <!-- Editar Contraseña -->
 
-
-
+class EditarContrasenia(PasswordChangeView):
+    template_name = "usuarios/editar_contrasenia.html"
+    success_url = reverse_lazy('perfil')  # envía al usuario a la página perfil
+    form_class = EditarContraseniaForm
 
 
 
