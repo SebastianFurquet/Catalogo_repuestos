@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required # esto se usa con las funciones
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
@@ -80,7 +82,7 @@ def clase_from(request):
 # --------------------------
 # Clase Basada en vista para CREAR
 
-class ClaseCreateView(CreateView):
+class ClaseCreateView(LoginRequiredMixin, CreateView):
     model = Clase
     form_class = ClaseForm
     success_url = reverse_lazy('clase_list')
@@ -112,7 +114,7 @@ class ClaseCreateView(CreateView):
 # ***************************************************************************************
 # ELIMINAR
 
-class ClaseDeleteView(DeleteView):
+class ClaseDeleteView(LoginRequiredMixin, DeleteView):
     model = Clase
     success_url = reverse_lazy('clase_list')
 
@@ -133,7 +135,7 @@ def clase_update(request, pk):
 # --------------------------
 # Clase Basada en vista para Update
 
-class ClaseUpdateView(UpdateView):
+class ClaseUpdateView(LoginRequiredMixin, UpdateView):
     model = Clase
     form_class = ClaseForm
     success_url = reverse_lazy('clase_list')

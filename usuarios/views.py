@@ -1,11 +1,14 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import AuthenticationForm
-from usuarios.forms import CustomUserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserChangeForm 
+from usuarios.forms import CustomUserCreationForm, EditarPerfilForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.views import LogoutView
 from django.contrib import messages
 
 # Create your views here.
+
+# <!-- Login -->
 
 def login_request(request):
     
@@ -32,6 +35,7 @@ def login_request(request):
         return render(request, "usuarios/login.html", {"formulario": formulario})
     
 
+# <!-- Registro -->
 
 def registro(request):
 
@@ -40,7 +44,7 @@ def registro(request):
         if formulario.is_valid():
             username = formulario.cleaned_data['username']
             formulario.save()
-            return redirect('clase_list') # envía al usuario a la página inicial o a la pagina de registro //por ahora clase_list
+            return redirect('login') # envía al usuario a la página de login para que inicie sesion
         else:
             return render(request, 'usuarios/registro.html', {"formulario": formulario})
 
@@ -48,12 +52,56 @@ def registro(request):
         formulario = CustomUserCreationForm()
         return render(request,"usuarios/registro.html" ,  {"formulario": formulario})
 
+
+
+# <!-- Logout -->
+
 class Logout(LogoutView):
     template_name = "usuarios/logout.html"
     
     
+@login_required
+def perfil(request):
+    usuario = request.user
+    contexto = {
+        "usuario": usuario,
+        "username": usuario.username,
+        "email": usuario.email,
+        "first_name": usuario.first_name,
+        "last_name": usuario.last_name,
+        # Si usás campos extras en tu modelo de usuario (ej: avatar, bio, etc.) también podés pasarlos acá
+        # "avatar": usuario.avatar.url if usuario.avatar else None,
+    }
+
+    return render(request, 'usuarios/perfil.html', contexto)
+
+
+
+
+@login_required
+def editar_perfil(request):
     
-    
+    if request.method == 'POST':
+        formulario = EditarPerfilForm(request.POST, instance=request.user)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('perfil')  # envía al usuario a su perfil después de editar el perfil
+    else:
+        formulario = EditarPerfilForm(instance=request.user)
+    return render(request, 'usuarios/editar_perfil.html', {"formulario": formulario})
+
+
+
+
+
+
+
+
+
+
+
+
+# -----------------------------------------------------------------------------------------------------    
     
     
 def iniciar_sesion(request):
@@ -69,3 +117,17 @@ def iniciar_sesion(request):
     else:
         formulario = AuthenticationForm()
         return render(request, "usuarios/login.html", {"formulario": formulario})
+    
+    
+
+def registrarse(request):
+    
+    if request.method == 'POST':
+        formulario = CustomUserCreationForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            
+            return redirect('login')
+    else:
+        formulario = CustomUserCreationForm()
+    return render(request, "usuarios/registro.html", {"formulario": formulario})

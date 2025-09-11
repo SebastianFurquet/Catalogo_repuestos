@@ -32,6 +32,12 @@
                 <!-- Login / Logout -->
 
                 {% if request.user.is_authenticated  %}
+
+                <!-- Mostrar usuario -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "perfil" %}">{{request.user.username}}</a>  
+                </li>
+
                 <li class="nav-item">
                     <form action="{% url "logout" %}" method='POST'> <!-- Logout lleva un token -->
                         {% csrf_token %}
@@ -42,10 +48,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url "login" %}">Login</a>  <!-- Login -->
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "registro" %}">Registrarse</a>  <!-- registro -->
+                </li>
                 {% endif %}
-
-
-
+                
             </ul>
         </div>
     </div>

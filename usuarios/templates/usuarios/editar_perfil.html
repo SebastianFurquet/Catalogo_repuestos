@@ -1,0 +1,56 @@
+{% extends "inventario/base.html" %}
+
+{% block title %} Editar Perfil {% endblock  %}
+
+{% block content_title %}
+    <div class="container text-center">
+        <h1>Editar Perfil</h1>
+    </div>
+{% endblock content_title %}
+
+
+
+{% block content %}
+
+    <div class="container">
+            <form action="{% url "editar_perfil" %}" method="POST" class="text-center login"> 
+                {% csrf_token %}
+
+                <div class="form-group col-md-12 mt-1 d-flex flex-column align-items-center">
+                    <label for="id_username" class="mb-2 ">Correo electrónico</label>
+                    {{ formulario.email }}
+                </div>
+
+                <div class="form-group col-md-12 mt-1 d-flex flex-column align-items-center">
+                    <label for="id_username" class="mb-2 ">Nombre</label>
+                    {{ formulario.first_name }}
+                </div>
+                
+                <div class="form-group col-md-12 mt-1 d-flex flex-column align-items-center">
+                    <label for="id_username" class="mb-2 ">Apellido</label>
+                    {{ formulario.last_name }}
+                </div>
+
+                <div class="text-center mt-3 btn py-2">
+                    <button type="submit"class='btn btn-success mt-3'>Editar</button>
+                </div>
+            </form>
+    </div>
+
+
+{% endblock content %}
+
+
+
+        <div class="mt-0 py-2 d-flex flex-column justify-content-center formulario ">
+
+        </div>
+
+
+
+                <div class="form-group col-md-12 mt-3 d-flex flex-column align-items-center">
+                    <label for="id_password" class="mb-2 ">Contraseña</label>
+
+                    {{ formulario.password }}
+                </div>
+

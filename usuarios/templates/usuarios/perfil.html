@@ -1,0 +1,30 @@
+{% extends "inventario/base.html" %}
+
+{% block title %} Perfil {% endblock  %}
+
+{% block content_title %}
+<h1>Perfil de {{ username }}</h1>
+{% endblock content_title %}
+
+{% block content %}
+
+
+    <div >
+    <ul >
+        <li ><strong>Usuario:</strong> {{ username }}</li>
+        <li ><strong>Email:</strong> {{ email }}</li>
+        <li ><strong>Nombre:</strong> {{ first_name }}</li>
+        <li ><strong>Apellido:</strong> {{ last_name }}</li>
+        
+    </ul>
+    </div>
+
+
+
+    <div >
+        <a href="{% url "editar_perfil" %}" class='btn btn-success mt-3'> Editar</a>
+    </div>
+
+
+{% endblock content %}
+
