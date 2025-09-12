@@ -35,7 +35,11 @@
 
                 <!-- Mostrar usuario -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url "perfil" %}">{{request.user.username}}</a>  
+                    <a class="nav-link" href="{% url "perfil" %}">
+                        {% if request.user.avatar.avatar %}
+                        <img src={{request.user.avatar.avatar.url }} alt="avatar" class="rounded-circle" width="30" height="30">
+                        {% endif %}
+                        {{request.user.username}}</a>  
                 </li>
 
                 <li class="nav-item">

@@ -1,3 +1,4 @@
+from .models import Avatar
 from .forms import EditarContraseniaForm
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
@@ -23,7 +24,11 @@ def login_request(request):
             user = authenticate(username=usuario, password=contrasenia)
             
             if user is not None:
+                
                 login(request, user)
+                
+                Avatar.objects.get_or_create(user=user)
+                
                 return redirect('clase_list')  # envía al usuario a la página inicial por ahora clase_list
             else:
                 messages.error(request, 'Usuario o contraseña incorrectos')
@@ -83,13 +88,21 @@ def perfil(request):
 @login_required
 def editar_perfil(request):
     
+    avatar = request.user.avatar
+    
     if request.method == 'POST':
-        formulario = EditarPerfilForm(request.POST, instance=request.user)
+        formulario = EditarPerfilForm(request.POST, request.FILES , instance=request.user)
         if formulario.is_valid():
+            
+            avatar_nuevo = formulario.cleaned_data.get('avatar')
+            if avatar_nuevo:
+                avatar.avatar = avatar_nuevo
+            
+            avatar.save()
             formulario.save()
             return redirect('perfil')  # envía al usuario a su perfil después de editar el perfil
     else:
-        formulario = EditarPerfilForm(instance=request.user)
+        formulario = EditarPerfilForm(instance=request.user, initial={'avatar': request.user.avatar.avatar})
     return render(request, 'usuarios/editar_perfil.html', {"formulario": formulario})
 
 
