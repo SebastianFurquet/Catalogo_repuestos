@@ -2,7 +2,11 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.base, name='base'),
+    
+    
+    #path('', views.base, name='base'),
+    path('', views.index, name='index'),
+    path('about/', views.about, name='about'),
     
     # LISTA
     path('clases/', views.ClaseListView.as_view() , name='clase_list'), # Esta es la nueva URL vinculada a la clase ClaseListView

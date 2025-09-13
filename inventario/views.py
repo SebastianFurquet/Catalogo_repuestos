@@ -14,6 +14,12 @@ from .forms import ClaseForm
 def base(request):
     return render(request, 'inventario/base.html')
 
+def index(request):
+    return render(request, 'inventario/index.html')
+
+def about(request):
+    return render(request, 'inventario/about.html')
+
 # **************************************************************************************
 # LEER - con Funcion
 

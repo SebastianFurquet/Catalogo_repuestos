@@ -1,0 +1,408 @@
+/*ESTILOS RESET*/
+/*////////////////////////////////////////////////////*/
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+ul {
+    display: inline-block;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+/*////////////////////////////////////////////////////*/
+/*ESTILOS BODY*/
+/*////////////////////////////////////////////////////*/
+#body {
+    background-color: #f4f4f4;
+    max-width: 100%;
+    min-height: 100%;
+    height: 100vh;
+}
+
+
+/*Estilos MAIN = QUIEN SOY */
+/*////////////////////////////////////////////////////*/
+.title-quien_soy {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.title-quien_soy p {
+    font-size: 1.3rem;
+}
+
+.container-grid-skills {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 columnas de igual tamaño */
+    gap: 50px;
+    /* Espacio entre elementos */
+    padding: 30px 0;
+    /* Espacio interno */
+}
+
+.skill-item {
+    display: grid;
+    grid-template-columns: 60px auto;
+    /* Primera columna para el icono, segunda para el texto */
+    align-items: center;
+    /* Centra verticalmente */
+    gap: 10px;
+    /* Espacio entre el icono y el texto */
+}
+
+.circle-icon {
+    width: 60px;
+    height: 60px;
+    display: grid;
+    place-items: center;
+    /* Centra completamente la imagen */
+    background-color: #f8f9fa;
+    /* Color de fondo */
+    border-radius: 50%;
+    /* Hace que el div sea un círculo */
+    border: 1px solid #9c9797;
+    /* Borde opcional */
+}
+
+.skill-name {
+    display: grid;
+    place-items: center;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/*@@@@ ANIMACIONES @@@@*/
+/* Animacion Linkedin*/
+.tooltip-container {
+    position: relative;
+    cursor: pointer;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+    font-size: 17px;
+    border-radius: 10px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 80px;
+    margin-top: 80px;
+}
+
+.tooltip {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    padding: 10px;
+    opacity: 0;
+    pointer-events: none;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    border-radius: 15px;
+    -webkit-box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2),
+        inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+        5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
+    box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2),
+        inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+        5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.profile {
+    background: #2a2b2f;
+    border-radius: 10px 15px;
+    padding: 10px;
+    border: 1px solid rgb(11, 63, 95);
+}
+
+.tooltip-container:hover .tooltip {
+    top: -90px;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.icon {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    position: relative;
+}
+
+.layer {
+    width: 55px;
+    height: 55px;
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+    transition: transform 0.3s, -webkit-transform 0.3s;
+}
+
+.icon:hover .layer {
+    -webkit-transform: rotate(-35deg) skew(20deg);
+    -ms-transform: rotate(-35deg) skew(20deg);
+    transform: rotate(-35deg) skew(20deg);
+}
+
+.layer span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.layer span,
+.text {
+    color: #1da1f2;
+    border-color: #1da1f2;
+}
+
+.icon:hover.layer span {
+    -webkit-box-shadow: -1px 1px 3px #1da1f2;
+    box-shadow: -1px 1px 3px #1da1f2;
+}
+
+.icon .text {
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    opacity: 0;
+    font-weight: 500;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -webkit-transition: bottom 0.3s ease, opacity 0.3s ease;
+    transition: bottom 0.3s ease, opacity 0.3s ease;
+}
+
+.icon:hover .text {
+    bottom: -35px;
+    opacity: 1;
+}
+
+.icon:hover .layer span:nth-child(1) {
+    opacity: 0.2;
+}
+
+.icon:hover .layer span:nth-child(2) {
+    opacity: 0.4;
+    -webkit-transform: translate(5px, -5px);
+    -ms-transform: translate(5px, -5px);
+    transform: translate(5px, -5px);
+}
+
+.icon:hover .layer span:nth-child(3) {
+    opacity: 0.6;
+    -webkit-transform: translate(10px, -10px);
+    -ms-transform: translate(10px, -10px);
+    transform: translate(10px, -10px);
+}
+
+.icon:hover .layer span:nth-child(4) {
+    opacity: 0.8;
+    -webkit-transform: translate(15px, -15px);
+    -ms-transform: translate(15px, -15px);
+    transform: translate(15px, -15px);
+}
+
+.icon:hover .layer span:nth-child(5) {
+    opacity: 1;
+    -webkit-transform: translate(20px, -20px);
+    -ms-transform: translate(20px, -20px);
+    transform: translate(20px, -20px);
+}
+
+.layer span.fab {
+    font-size: 30px;
+    line-height: 64px;
+    text-align: center;
+    fill: #1da1f2;
+    background: #000;
+}
+
+.user {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    gap: 10px;
+}
+
+.img {
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+    font-weight: 700;
+    border: 1px solid #1da1f2;
+    border-radius: 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    background: #fff;
+}
+
+.name {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1da1f2;
+}
+
+.details {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    gap: 0;
+    color: #fff;
+}
+
+.about {
+    color: #ccc;
+    padding-top: 5px;
+}
+
+/*ANIMACIONES*/
+/*Animacion de circulos*/
+.rotate-scale-up:hover {
+    -webkit-animation: rotate-scale-up 0.65s linear both;
+    animation: rotate-scale-up 0.65s linear both;
+}
+
+/**
+ * ----------------------------------------
+ * animation rotate-scale-up
+ * ----------------------------------------
+ */
+@-webkit-keyframes rotate-scale-up {
+    0% {
+        -webkit-transform: scale(1) rotateZ(0);
+        transform: scale(1) rotateZ(0);
+    }
+
+    50% {
+        -webkit-transform: scale(2) rotateZ(180deg);
+        transform: scale(2) rotateZ(180deg);
+    }
+
+    100% {
+        -webkit-transform: scale(1) rotateZ(360deg);
+        transform: scale(1) rotateZ(360deg);
+    }
+}
+
+@keyframes rotate-scale-up {
+    0% {
+        -webkit-transform: scale(1) rotateZ(0);
+        transform: scale(1) rotateZ(0);
+    }
+
+    50% {
+        -webkit-transform: scale(2) rotateZ(180deg);
+        transform: scale(2) rotateZ(180deg);
+    }
+
+    100% {
+        -webkit-transform: scale(1) rotateZ(360deg);
+        transform: scale(1) rotateZ(360deg);
+    }
+}
+
+/*Animacion tarjetas*/
+/* Excel */
+.card-excel:hover {
+    transform: scale(0.98);
+    border-radius: 20px;
+}
+
+.card-excel:hover {
+    box-shadow: 0px 0px 30px 1px rgba(5, 139, 28, 0.89);
+}
+
+/* Power bi */
+.card-power_bi:hover {
+    transform: scale(0.98);
+    border-radius: 20px;
+}
+
+.card-power_bi:hover {
+    box-shadow: 0px 0px 30px 1px rgba(255, 196, 3, 0.815);
+}
+
+/* Power point */
+.card-power_point:hover {
+    transform: scale(0.98);
+    border-radius: 20px;
+}
+
+.card-power_point:hover {
+    box-shadow: 0px 0px 30px 1px rgba(250, 97, 117, 0.842);
+}
+
+/* CANVA */
+.card-canva:hover {
+    transform: scale(0.98);
+    border-radius: 20px;
+}
+
+.card-canva:hover {
+    box-shadow: 0px 0px 30px 1px rgba(4, 231, 231, 0.795);
+}
+
+/* Python */
+.card-python:hover {
+    transform: scale(0.98);
+    border-radius: 20px;
+}
+
+.card-python:hover {
+    box-shadow: 0px 0px 30px 1px rgba(0, 81, 255, 0.849);
+}
+
+/* SQL */
+.card-sql:hover {
+    transform: scale(0.98);
+    border-radius: 20px;
+}
+
+.card-sql:hover {
+    box-shadow: 0px 0px 30px 1px rgba(255, 0, 200, 0.747);
+}
+
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/* Media queries MAIN = Qien Soy */
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+@media screen and (max-width: 1200px) {
+    .container-grid-skills {
+        grid-template-columns: 1fr;
+        /* 1 columna */
+    }
+}
+
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/

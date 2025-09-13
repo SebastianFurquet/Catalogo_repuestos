@@ -1,0 +1,98 @@
+{% extends "inventario/base.html" %}
+{% load static %}
+{% block title %} About {% endblock  %}
+
+{% block content_title %}
+    <!-- Sección de "Quien soy" -->
+    <section class="row text-center ">
+        <div class="col-12 title-quien_soy">
+            <h1>Quien soy</h1>
+            <p>Aquí conocerás mi trayectoria, mis habilidades y lo que me motiva a crear soluciones innovadoras.</p>
+        </div>
+    </section>
+{% endblock content_title %}
+
+
+{% block content %}
+
+<main id="main-quienSoy" class="container  " >
+    <!-- Contenedor para las secciones "Sobre mí" y "Habilidades y conocimientos" -->
+
+<section class="row align-items-start">
+    <!-- Columna Izquierda -->
+    <div class="col-md-6 mb-5">
+        <h2 class="text-center mb-5">Sobre mí</h2> <!-- sin row -->
+        <div class="row">
+        <div class="col-md-4 text-center">
+            <img src="{% static 'image/yo.png' %}" alt="mi foto" class="img-fluid shadow-sm">
+        </div>
+        <div class="col-md-8">
+                    <p>
+                        Soy un profesional de 36 años, técnico en automotores con gran pasión por la tecnología y la innovación. <br>Desde hace cinco años, incursioné en el mundo de los datos y la programación, desarrollando habilidades sólidas en Excel, Power BI, PowerPoint, Canva, Python, SQL y gestión de Bases de Datos. 
+                    </p>
+                    <p>Mi curiosidad y espíritu autodidacta me han llevado a diseñar soluciones eficientes y optimizar la toma de decisiones en diversos proyectos. Además, una de las facetas menos conocidas de mi formación es mi certificación en armado y reparación de computadoras, lo que me permite comprender la tecnología desde su interior y enfrentar cualquier obstáculo de manera integral.</p>
+                    <p> Estoy convencido de que la combinación de conocimientos en motores, computadoras y datos me brinda una perspectiva única para aportar valor en cada desafío que afronto. Mi objetivo es seguir creciendo profesionalmente y compartir mi experiencia con otros entusiastas de la innovación y el aprendizaje.</p>
+        </div>
+        </div>
+    </div>
+        <!-- Sección de "Habilidades y conocimientos" -->
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">Habilidades y conocimientos</h2>
+            <div class="container-grid-skills">
+                
+                <!-- Excel -->
+                <div class="skill-item">
+                    <div class="circle-icon rotate-scale-up">
+                        <img width="48" height="48" src="https://img.icons8.com/color/48/microsoft-excel-2019--v1.png" alt="Excel"/>
+                    </div>
+                        <div class="skill-name card-excel">Excel</div> 
+                    </div>
+
+                <!-- Power BI -->
+                <div class="skill-item">
+                    <div class="circle-icon rotate-scale-up">
+                        <img width="48" height="48" src="https://img.icons8.com/color/48/power-bi-2021.png" alt="Power BI"/>
+                    </div>
+                    <div class="skill-name card-power_bi">Power BI</div>
+                </div>
+        
+                <!-- PowerPoint -->
+                <div class="skill-item">
+                    <div class="circle-icon rotate-scale-up">
+                        <img width="48" height="48" src="https://img.icons8.com/color/48/microsoft-powerpoint-2019--v1.png" alt="PowerPoint"/>
+                    </div>
+                    <div class="skill-name card-power_point">PowerPoint</div>
+                </div>
+        
+                <!-- Canva -->
+                <div class="skill-item">
+                    <div class="circle-icon rotate-scale-up">
+                        <img width="48" height="48" src="https://img.icons8.com/color/48/canva.png" alt="Canva"/>
+                    </div>
+                    <div class="skill-name card-canva">Canva</div>
+                </div>
+        
+                <!-- Python -->
+                <div class="skill-item">
+                    <div class="circle-icon rotate-scale-up">
+                        <img width="48" height="48" src="https://img.icons8.com/color/48/python--v1.png" alt="Python"/>
+                    </div>
+                    <div class="skill-name card-python">Python</div>
+                </div>
+        
+                <!-- SQL -->
+                <div class="skill-item">
+                    <div class="circle-icon rotate-scale-up">
+                        <img width="48" height="48" src="https://img.icons8.com/color/48/sql.png" alt="SQL"/>
+                    </div>
+                    <div class="skill-name card-sql">SQL</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock content %}
+
+
+
