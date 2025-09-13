@@ -32,14 +32,14 @@ def clase_list(request):
         )
     else:
         clase_list = Clase.objects.all()
-    return render(request, 'inventario/clase_list.html', {'clase': clase_list})
+    return render(request, 'inventario/clase/clase_list.html', {'clase': clase_list})
 
 # --------------------------
 # Clase Basada en vista para LEER
 
 class ClaseListView(ListView):
     model = Clase
-    template_name = 'inventario/clase_list.html'
+    template_name = 'inventario/clase/clase_list.html'
     context_object_name = 'clase'
     
     def get_queryset(self):
@@ -57,7 +57,7 @@ class ClaseListView(ListView):
 # DETALLE
 def clase_detail(request, pk):
     clase = get_object_or_404(Clase, pk=pk)
-    return render(request, 'inventario/clase_detail.html', {'clase': clase})
+    return render(request, 'inventario/clase/clase_detail.html', {'clase': clase})
 
 
 # --------------------------
@@ -65,7 +65,7 @@ def clase_detail(request, pk):
 
 class ClaseDetailView(DetailView): # por defecto usa el contexto object
     model = Clase
-    #template_name = 'inventario/clase_detail.html'
+    template_name = 'inventario/clase/clase_detail.html'
     #context_object_name = 'clase'
 
 
@@ -83,7 +83,7 @@ def clase_from(request):
             return redirect('clase_list')
     else:
         form = ClaseForm()
-    return render(request, 'inventario/clase_form.html', {'form': form})    
+    return render(request, 'inventario/clase/clase_form.html', {'form': form})    
 
 # --------------------------
 # Clase Basada en vista para CREAR
@@ -91,6 +91,7 @@ def clase_from(request):
 class ClaseCreateView(LoginRequiredMixin, CreateView):
     model = Clase
     form_class = ClaseForm
+    template_name = 'inventario/clase/clase_form.html'
     success_url = reverse_lazy('clase_list')
     
     def form_valid(self, form):
@@ -122,6 +123,7 @@ class ClaseCreateView(LoginRequiredMixin, CreateView):
 
 class ClaseDeleteView(LoginRequiredMixin, DeleteView):
     model = Clase
+    template_name = 'inventario/clase/clase_confirm_delete.html'
     success_url = reverse_lazy('clase_list')
 
 # ***************************************************************************************
@@ -136,7 +138,7 @@ def clase_update(request, pk):
             return redirect('clase_list')
     else:
         form = ClaseForm(instance=clase)
-    return render(request, 'inventario/clase_update.html', {'form': form})
+    return render(request, 'inventario/clase/clase_update.html', {'form': form})
 
 # --------------------------
 # Clase Basada en vista para Update
@@ -144,6 +146,7 @@ def clase_update(request, pk):
 class ClaseUpdateView(LoginRequiredMixin, UpdateView):
     model = Clase
     form_class = ClaseForm
+    template_name = 'inventario/clase/clase_update.html'
     success_url = reverse_lazy('clase_list')
     
     

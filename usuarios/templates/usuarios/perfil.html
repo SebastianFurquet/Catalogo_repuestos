@@ -3,28 +3,29 @@
 {% block title %} Perfil {% endblock  %}
 
 {% block content_title %}
-<h1>Perfil de {{ user.username }}</h1>
+<div class="container text-center">
+    <h1>Perfil de {{ user.username }}</h1>
+</div>
 {% endblock content_title %}
 
 {% block content %}
 
 
-    <div >
-    <ul >
+<div class="container d-flex flex-column align-items-center text-center mt-4">
+
+    <ul class="list-unstyled text-start" >
         <li ><strong>Usuario:</strong> {{ user.username }}</li>
         <li ><strong>Email:</strong> {{ user.email }}</li>
         <li ><strong>Nombre:</strong> {{ user.first_name }}</li>
         <li ><strong>Apellido:</strong> {{ user.last_name }}</li>
     </ul>
+
+    <div class="mt-5">
+        <a href="{% url "editar_perfil" %}" class='btn btn-primary'> Editar Perfil</a>
+        <a href="{% url "editar_contrasenia" %}" class='btn btn-danger' > Editar Contraseña</a>
     </div>
 
-    <div >
-        <a href="{% url "editar_perfil" %}" class='btn btn-success mt-3'> Editar Perfil</a>
-    </div>
-    <div >
-        <a href="{% url "editar_contrasenia" %}" class='btn btn-success mt-3'> Editar Contraseña</a>
-    </div>
-
+</div>
 
 {% endblock content %}
 

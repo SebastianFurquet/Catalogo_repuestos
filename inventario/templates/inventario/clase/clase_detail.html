@@ -3,12 +3,14 @@
 {% block title %} Detalle Clases {% endblock  %}
 
 {% block content_title %}
-<h1>Detalle</h1>
+<div class="container text-center">
+    <h1>Detalle</h1>
+</div>
 {% endblock content_title %}
 
 {% block content %}
 
-<div class='container'>
+<div class='container mt-5'>
     <div class='row col-12' >
         <table class="table table-light table-striped">
             <thead class="table-info"> <!-- estos son los encabezados de la tabla -->
@@ -29,8 +31,8 @@
             </tbody>
         </table>
     </div>
-    <div class='row'>
-        <div class='col-3'>
+    <div class='row d-flex justify-content-center'>
+        <div class='col-auto' >
             <a href="{% url 'clase_list' %}" class="btn btn-primary">Volver</a>
         </div>
     </div>

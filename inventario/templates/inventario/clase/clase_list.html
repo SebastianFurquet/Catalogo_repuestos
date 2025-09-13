@@ -3,7 +3,9 @@
 {% block title %} Listado de Clases {% endblock  %}
 
 {% block content_title %}
-    <h1>Clases</h1>
+    <div class="container text-center">
+        <h1>Clases</h1>
+    </div>
 {% endblock content_title %}
 
 
@@ -12,20 +14,23 @@
 
 
 <!-- BARRA DE BUSQUEDA-->
-<div class='container'>
-    <div class='row col-6'>
-        <a href="{% url "clase_form" %}" class="btn btn-primary mb-3 col-3">Agregar Clase</a>
-        
-        <form action="{% url "clase_list" %}" method='GET' class='col-9'>
-            <input type="text" name='busqueda' placeholder='Buscar Clase' type='submit' class='form-control mb-3'>
+<div class='container my-3' >
+    <div class='row justify-content-center'>
+        <div class="col-auto">
+            <a href="{% url "clase_form" %}" class="btn btn-primary ">Agregar Clase</a>
+        </div>
+        <div class="col-auto">
+        <form action="{% url "clase_list" %}" method='GET' class='d-flex'>
+            <input type="text" name='busqueda' placeholder='Buscar Clase' type='submit' class='form-control'>
         </form>
+        </div>
     </div>
 </div>
 
 {% comment %} <a href="{% url "clase_buscar" %}" class="btn btn-primary mb-3">Buscar Clase</a>  {% endcomment %}
 
-<div class='container'>
-    <div class='row col-6'>
+<div class='container col-6 mt-0 py-2 d-flex flex-column justify-content-center'>
+    <div class='row  '>
         <table class="table table-light table-striped">
         <thead class="table-info"> <!-- estos son los encabezados de la tabla -->
             <tr>
