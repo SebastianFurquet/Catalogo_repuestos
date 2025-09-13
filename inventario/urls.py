@@ -7,7 +7,7 @@ urlpatterns = [
     #path('', views.base, name='base'),
     path('', views.index, name='index'),
     path('about/', views.about, name='about'),
-    
+    # ---------------------------------------------// CLASES // -----------------------------------------------
     # LISTA
     path('clases/', views.ClaseListView.as_view() , name='clase_list'), # Esta es la nueva URL vinculada a la clase ClaseListView
     
@@ -24,6 +24,23 @@ urlpatterns = [
     # ACTUALIZACIONN
     #path('clases/update/<int:pk>',views.clase_update, name='clase_update'), # URL de Funcion Update
     path('clases/update/<int:pk>',views.ClaseUpdateView.as_view(), name='clase_update'), # Esta es la nueva URL vinculada a la clase ClaseUpdateView
+    
+    # ---------------------------------------------// MARCAS // -----------------------------------------------
+    # LISTA
+    path('marcas/', views.MarcaListView.as_view() , name='marca_list'),
+    
+    # CREACION
+    path('marcas/from', views.MarcaCreateView.as_view(), name='marca_form' ),
+    
+    # DETALLE
+    path('marcas/detail/<int:pk>',views.MarcaDetailView.as_view(), name='marca_detail'), 
+    
+    # ACTUALIZACIONN
+    path('marcas/update/<int:pk>',views.MarcaUpdateView.as_view(), name='marca_update'),
+    
+    # ELIMINACION
+    path('marcas/delete/<int:pk>',views.MarcaDeleteView.as_view(), name='marca_delete'),
+    
     
 
 

@@ -1,13 +1,12 @@
 from django.contrib.auth.decorators import login_required # esto se usa con las funciones
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin 
 from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
-from .models import Clase 
-from .forms import ClaseForm
 
-
+from .models import Clase, Marca
+from .forms import ClaseForm, MarcaForm
 
 # Create your views here.
 
@@ -21,7 +20,7 @@ def about(request):
     return render(request, 'inventario/about.html')
 
 # **************************************************************************************
-# LEER - con Funcion
+# LEER - con Funcion -- LISTA + BUSQUEDA
 
 def clase_list(request):
     busqueda = request.GET.get('busqueda', None)
@@ -35,7 +34,7 @@ def clase_list(request):
     return render(request, 'inventario/clase/clase_list.html', {'clase': clase_list})
 
 # --------------------------
-# Clase Basada en vista para LEER
+# Clase Basada en vista LISTA + BUSQUEDA
 
 class ClaseListView(ListView):
     model = Clase
@@ -70,7 +69,7 @@ class ClaseDetailView(DetailView): # por defecto usa el contexto object
 
 
 # ***************************************************************************************
-# CREAR
+# CREAR-FORM
 
 def clase_from(request): 
     if request.method == 'POST':
@@ -86,7 +85,7 @@ def clase_from(request):
     return render(request, 'inventario/clase/clase_form.html', {'form': form})    
 
 # --------------------------
-# Clase Basada en vista para CREAR
+# Clase Basada en vista para CREAR-FORM
 
 class ClaseCreateView(LoginRequiredMixin, CreateView):
     model = Clase
@@ -141,7 +140,7 @@ def clase_update(request, pk):
     return render(request, 'inventario/clase/clase_update.html', {'form': form})
 
 # --------------------------
-# Clase Basada en vista para Update
+# Clase Basada en vista para UPDATE
 
 class ClaseUpdateView(LoginRequiredMixin, UpdateView):
     model = Clase
@@ -151,3 +150,65 @@ class ClaseUpdateView(LoginRequiredMixin, UpdateView):
     
     
 # ***************************************************************************************
+#/////////////////////////////---- MARCA ----//////////////////////////////////////////
+
+# Clase Basada en vista LISTA + BUSQUEDA
+
+class MarcaListView(ListView):
+    model = Marca
+    template_name = 'inventario/marca/marca_list.html'
+    context_object_name = 'marca'
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        busqueda = self.request.GET.get('busqueda', None)
+        if busqueda:
+            queryset = queryset.filter(
+                Q(cod_marca__icontains=busqueda) | # Con el modulo Q puedo combinar la busqueda de varios campos
+                Q(nombre__icontains=busqueda)
+            )
+        return queryset    
+    
+
+# Clase Basada en vista para CREAR-FORM
+
+class MarcaCreateView(LoginRequiredMixin, CreateView):
+    model = Marca
+    form_class = MarcaForm
+    #context_object_name = 'marca'
+    template_name = 'inventario/marca/marca_form.html'
+    success_url = reverse_lazy('marca_list')
+    
+    def form_valid(self, form):
+        if self.request.user.is_authenticated:
+            form.instance.user = self.request.user
+        else:
+            form.add_error(None, 'No se puede guardar el registro porque no ha iniciado sesión')
+            return self.form_invalid(form)
+        return super().form_valid(form)
+    
+
+# Clase Basada en vista para DETALLE
+
+class MarcaDetailView(DetailView): # por defecto usa el contexto object
+    model = Marca
+    template_name = 'inventario/marca/marca_detail.html'
+    #context_object_name = 'marca'
+
+
+# Clase Basada en vista para UPDATE
+
+class MarcaUpdateView(LoginRequiredMixin, UpdateView):
+    model = Marca
+    form_class = MarcaForm
+    template_name = 'inventario/marca/marca_update.html'
+    success_url = reverse_lazy('marca_list')
+
+# ELIMINAR
+
+class MarcaDeleteView(LoginRequiredMixin, DeleteView):
+    model = Marca
+    template_name = 'inventario/marca/marca_confirm_delete.html'
+    success_url = reverse_lazy('marca_list')
+
+

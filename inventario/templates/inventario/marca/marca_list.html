@@ -1,10 +1,10 @@
 {% extends "inventario/base.html" %}
 
-{% block title %} Listado de Clases {% endblock  %}
+{% block title %} Listado de Marcas {% endblock  %}
 
 {% block content_title %}
     <div class="container text-center">
-        <h1>Clases</h1>
+        <h1>Marcas</h1>
     </div>
 {% endblock content_title %}
 
@@ -17,37 +17,33 @@
 <div class='container my-3' >
     <div class='row justify-content-center'>
         <div class="col-auto">
-            <a href="{% url "clase_form" %}" class="btn btn-primary ">Agregar Clase</a>
+            <a href="{% url "marca_form" %}" class="btn btn-primary ">Agregar Marca</a>                             <!-- CAMBIAR URL-->
         </div>
         <div class="col-auto">
-        <form action="{% url "clase_list" %}" method='GET' class='d-flex'>
+        <form action="{% url "marca_list" %}" method='GET' class='d-flex'>                                          <!-- CAMBIAR URL-->
             <input type="text" name='busqueda' placeholder='Buscar' type='submit' class='form-control'>
         </form>
         </div>
     </div>
 </div>
 
-{% comment %} <a href="{% url "clase_buscar" %}" class="btn btn-primary mb-3">Buscar Clase</a>  {% endcomment %}
-
 <div class='container col-6 mt-0 py-2 d-flex flex-column justify-content-center'>
     <div class='row  '>
         <table class="table table-light table-striped">
         <thead class="table-info"> <!-- estos son los encabezados de la tabla -->
             <tr>
-                <th>Cod Clase</th>
-                <th>Nombre</th>
+                <th>Marca</th>
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody> <!-- Cuerpo de la tabla filas y columnas -->
-            {% for clase in clase %}
+        <tbody> <!-- Cuerpo de la tabla filas y columnas -->                                                         <!-- CAMBIAR MODELO -->
+            {% for marca in marca %}
                 <tr>
-                    <td>{{ clase.cod_clase }}</td>
-                    <td>{{ clase.nombre }}</td>
+                    <td>{{ marca.nombre }}</td>
                     <td>
-                        <a href="{% url "clase_detail" clase.id %}" class='btn btn-sm btn-info'>Detalle</a>
-                        <a href="{% url 'clase_update' clase.id %}" class='btn btn-sm btn-warning'>Modificar</a>
-                        <a href="{% url "clase_delete" clase.id %}" class='btn btn-sm btn-danger'>Eliminar</a>
+                        <a href="{% url "marca_detail" marca.id %}" class='btn btn-sm btn-info'>Detalle</a>
+                        <a href="{% url 'marca_update' marca.id %}" class='btn btn-sm btn-warning'>Modificar</a>
+                        <a href="{% url "marca_delete" marca.id %}" class='btn btn-sm btn-danger'>Eliminar</a>
                     </td>
                 </tr>
             {% empty %}

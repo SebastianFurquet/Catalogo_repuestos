@@ -1,0 +1,43 @@
+{% extends "inventario/base.html" %}
+
+{% block title %} Detalle Clases {% endblock  %}
+
+{% block content_title %}
+<div class="container text-center">
+    <h1>Detalle</h1>
+</div>
+{% endblock content_title %}
+
+{% block content %}
+
+<div class='container mt-5'>
+    <div class='row col-12' >
+        <table class="table table-light table-striped">
+            <thead class="table-info"> <!-- estos son los encabezados de la tabla -->
+                <tr>
+                    <th>Cod Clase</th>
+                    <th>Nombre</th>
+                    <th>Fecha Creacion</th>
+                    <th>Fecha Modificacion</th>
+                    <th>Imagen</th>
+                </tr>
+            </thead>
+            <tbody> <!-- Cuerpo de la tabla filas y columnas -->
+                <tr>
+                    <td>{{ object.cod_marca }}</td>
+                    <td>{{ object.nombre }}</td>
+                    <td>{{ object.fecha_creacion }} </td>
+                    <td>{{ object.fecha_modificacion }}</td>
+                    <td>{{ object.imagen }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class='row d-flex justify-content-center'>
+        <div class='col-auto' >
+            <a href="{% url 'marca_list' %}" class="btn btn-primary">Volver</a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -5,7 +5,7 @@ from django.db import models
 # SAP_COD_CLASE
 
 class Clase(models.Model): 
-    cod_clase = models.CharField(max_length=10)
+    cod_clase = models.IntegerField(max_length=10)
     nombre = models.CharField(max_length=100)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
@@ -18,10 +18,11 @@ class Clase(models.Model):
 # SAP_COD_MARCA
 
 class Marca(models.Model): 
-    cod_marca = models.CharField(max_length=10)
+    cod_marca = models.IntegerField(max_length=10)
     nombre = models.CharField(max_length=100)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
+    imagen = models.ImageField(upload_to='marca', null=True)
     
     def __str__(self):
         return f'{self.cod_marca} - {self.nombre}'
@@ -38,13 +39,14 @@ class Marca(models.Model):
 
 
 class Modelo(models.Model):
-    cod_modelo = models.CharField(max_length=20)
-    clase = models.CharField(max_length=10) 
+    cod_modelo = models.IntegerField(max_length=20)
+    clase = models.IntegerField(max_length=10) 
     marca = models.CharField(max_length=100)
     descripcion = models.CharField(max_length=200, blank=True)
-    cod_veh = models.CharField(max_length=10)
+    cod_veh = models.IntegerField(max_length=10)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
+    imagen = models.ImageField(upload_to='modelo ', null=True)
     
     def __str__(self):
         return f'{self.cod_modelo} - {self.cod_veh} - {self.descripcion or 'Sin desc.'}'
