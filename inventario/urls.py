@@ -42,6 +42,22 @@ urlpatterns = [
     path('marcas/delete/<int:pk>',views.MarcaDeleteView.as_view(), name='marca_delete'),
     
     
-
+    # ---------------------------------------------// MODELOS // -----------------------------------------------
+    # LISTA
+    path('modelos/', views.ModeloListView.as_view() , name='modelo_list'),
+    
+    # CREACION
+    path('modelos/from', views.ModeloCreateView.as_view(), name='modelo_form' ),
+    
+    # DETALLE
+    path('modelos/detail/<int:pk>',views.ModeloDetailView.as_view(), name='modelo_detail'), 
+    
+    # ACTUALIZACIONN
+    path('modelos/update/<int:pk>',views.ModeloUpdateView.as_view(), name='modelo_update'),
+    
+    # ELIMINACION
+    path('modelos/delete/<int:pk>',views.ModeloDeleteView.as_view(), name='modelo_delete'),
+    
+    
 
 ]

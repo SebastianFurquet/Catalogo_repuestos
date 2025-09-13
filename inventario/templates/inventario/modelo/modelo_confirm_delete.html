@@ -1,0 +1,34 @@
+{% extends "inventario/base.html" %}
+
+{% block title %} Eliminacion de Modelo {% endblock  %}
+
+{% block content_title %}
+    <div class="container text-center">
+        <h1>Eliminar</h1>
+    </div>
+{% endblock content_title %}
+
+{% block content %}
+
+<div class='container text-center mt-5'>
+    <div class='d-flex flex-column align-items-center'>
+        <p class='fs-3'>Desea eliminar: </p>
+
+        <ul class= "list-unstyled">
+            <li class='fs-5' >{{ object.cod_veh }} - {{ object.marca }} - {{ object.descripcion }}</li> {% comment %} uso contexto por defecto OBJECT en MarcaDeleteView {% endcomment %}
+        </ul>
+
+        <div class='d-flex gap-5 mt-5'>
+            
+            <form action="{% url "modelo_delete" modelo.id %}" method='POST' >
+                {% csrf_token %}
+                <input type='submit' value='Eliminar' class='btn btn-danger'>
+            </form>
+            
+            <a href="{% url "modelo_list" %}" class='btn btn-primary'>Volver</a>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

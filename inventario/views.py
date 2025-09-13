@@ -5,8 +5,8 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 
-from .models import Clase, Marca
-from .forms import ClaseForm, MarcaForm
+from .models import Clase, Marca, Modelo
+from .forms import ClaseForm, MarcaForm, ModeloForm
 
 # Create your views here.
 
@@ -212,3 +212,64 @@ class MarcaDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('marca_list')
 
 
+# ***************************************************************************************
+#/////////////////////////////---- MODELO ----//////////////////////////////////////////
+
+# Clase Basada en vista LISTA + BUSQUEDA
+
+class ModeloListView(ListView):
+    model = Modelo
+    template_name = 'inventario/modelo/modelo_list.html'
+    context_object_name = 'modelo'
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        busqueda = self.request.GET.get('busqueda', None)
+        if busqueda:
+            queryset = queryset.filter(
+                Q(marca__icontains=busqueda) | # Con el modulo Q puedo combinar la busqueda de varios campos
+                Q(descripcion__icontains=busqueda)
+            )
+        return queryset    
+    
+
+# Clase Basada en vista para CREAR-FORM
+
+class ModeloCreateView(LoginRequiredMixin, CreateView):
+    model = Modelo
+    form_class = ModeloForm
+    #context_object_name = 'marca'
+    template_name = 'inventario/modelo/modelo_form.html'
+    success_url = reverse_lazy('modelo_list')
+    
+    def form_valid(self, form):
+        if self.request.user.is_authenticated:
+            form.instance.user = self.request.user
+        else:
+            form.add_error(None, 'No se puede guardar el registro porque no ha iniciado sesión')
+            return self.form_invalid(form)
+        return super().form_valid(form)
+    
+
+# Clase Basada en vista para DETALLE
+
+class ModeloDetailView(DetailView): # por defecto usa el contexto object
+    model = Modelo
+    template_name = 'inventario/modelo/modelo_detail.html'
+    #context_object_name = 'marca'
+
+
+# Clase Basada en vista para UPDATE
+
+class ModeloUpdateView(LoginRequiredMixin, UpdateView):
+    model = Modelo
+    form_class = ModeloForm
+    template_name = 'inventario/modelo/modelo_update.html'
+    success_url = reverse_lazy('modelo_list')
+
+# ELIMINAR
+
+class ModeloDeleteView(LoginRequiredMixin, DeleteView):
+    model = Modelo
+    template_name = 'inventario/modelo/modelo_confirm_delete.html'
+    success_url = reverse_lazy('modelo_list')

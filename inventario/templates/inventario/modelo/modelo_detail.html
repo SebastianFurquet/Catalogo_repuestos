@@ -1,6 +1,6 @@
 {% extends "inventario/base.html" %}
 
-{% block title %} Detalle Clases {% endblock  %}
+{% block title %} Detalle Modelos {% endblock  %}
 
 {% block content_title %}
 <div class="container text-center">
@@ -15,17 +15,22 @@
         <table class="table table-light table-striped">
             <thead class="table-info"> <!-- estos son los encabezados de la tabla -->
                 <tr class= "text-center">
-                    <th>Cod Clase</th>
-                    <th>Nombre</th>
+                    <th>Cod Modelo</th>
+                    <th>Clase</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Cod Vehiculo</th>
                     <th>Fecha Creacion</th>
                     <th>Fecha Modificacion</th>
-                    <th>Imagen</th>
                 </tr>
             </thead>
             <tbody> <!-- Cuerpo de la tabla filas y columnas -->
                 <tr class= "text-center align-middle">
-                    <td>{{ object.cod_marca }}</td>
-                    <td>{{ object.nombre }}</td>
+                    <td>{{ object.cod_modelo }}</td>
+                    <td>{{ object.clase }}</td>
+                    <td>{{ object.marca }}</td>
+                    <td>{{ object.descripcion }}</td>
+                    <td>{{ object.cod_veh }}</td>
                     <td>{{ object.fecha_creacion }} </td>
                     <td>{{ object.fecha_modificacion }}</td>
                     <td>
@@ -41,7 +46,7 @@
     </div>
     <div class='row d-flex justify-content-center'>
         <div class='col-auto' >
-            <a href="{% url 'marca_list' %}" class="btn btn-primary">Volver</a>
+            <a href="{% url 'modelo_list' %}" class="btn btn-primary">Volver</a>
         </div>
     </div>
 </div>

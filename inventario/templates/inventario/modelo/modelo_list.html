@@ -1,10 +1,10 @@
 {% extends "inventario/base.html" %}
 
-{% block title %} Listado de Marcas {% endblock  %}
+{% block title %} Listado de Modelos {% endblock  %}
 
 {% block content_title %}
     <div class="container text-center">
-        <h1>Marcas</h1>
+        <h1>Modelos</h1>
     </div>
 {% endblock content_title %}
 
@@ -17,10 +17,10 @@
 <div class='container my-3' >
     <div class='row justify-content-center'>
         <div class="col-auto">
-            <a href="{% url "marca_form" %}" class="btn btn-primary ">Agregar Marca</a>                             <!-- CAMBIAR URL-->
+            <a href="{% url "modelo_form" %}" class="btn btn-primary ">Agregar Modelo</a>                             <!-- CAMBIAR URL-->
         </div>
         <div class="col-auto">
-        <form action="{% url "marca_list" %}" method='GET' class='d-flex'>                                          <!-- CAMBIAR URL-->
+        <form action="{% url "modelo_list" %}" method='GET' class='d-flex'>                                          <!-- CAMBIAR URL-->
             <input type="text" name='busqueda' placeholder='Buscar' type='submit' class='form-control'>
         </form>
         </div>
@@ -33,17 +33,18 @@
         <thead class="table-info"> <!-- estos son los encabezados de la tabla -->
             <tr class= "text-center align-middle">
                 <th>Marca</th>
+                <th>Modelo</th> 
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody class= "text-center align-middle"> <!-- Cuerpo de la tabla filas y columnas -->                                                         <!-- CAMBIAR MODELO -->
-            {% for marca in marca %}
+            {% for modelo in modelo %}
                 <tr>
-                    <td>{{ marca.nombre }}</td>
+                    <td>{{ modelo.nombre }}</td>
                     <td>
-                        <a href="{% url "marca_detail" marca.id %}" class='btn btn-sm btn-info'>Detalle</a>
-                        <a href="{% url 'marca_update' marca.id %}" class='btn btn-sm btn-warning'>Modificar</a>
-                        <a href="{% url "marca_delete" marca.id %}" class='btn btn-sm btn-danger'>Eliminar</a>
+                        <a href="{% url "modelo_detail" modelo.id %}" class='btn btn-sm btn-info'>Detalle</a>
+                        <a href="{% url 'modelo_update' modelo.id %}" class='btn btn-sm btn-warning'>Modificar</a>
+                        <a href="{% url "modelo_delete" modelo.id %}" class='btn btn-sm btn-danger'>Eliminar</a>
                     </td>
                 </tr>
             {% empty %}

@@ -33,15 +33,15 @@
     <div class='row  '>
         <table class="table table-light table-striped">
         <thead class="table-info"> <!-- estos son los encabezados de la tabla -->
-            <tr>
+            <tr class= "text-center align-middle">
                 <th>Cod Clase</th>
                 <th>Nombre</th>
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody> <!-- Cuerpo de la tabla filas y columnas -->
+        <tbody class= "text-center align-middle"> <!-- Cuerpo de la tabla filas y columnas -->
             {% for clase in clase %}
-                <tr>
+                <tr >
                     <td>{{ clase.cod_clase }}</td>
                     <td>{{ clase.nombre }}</td>
                     <td>

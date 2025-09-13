@@ -1,5 +1,5 @@
 from django import forms
-from .models import Clase, Marca
+from .models import Clase, Marca, Modelo
 
 class ClaseForm(forms.ModelForm):
     class Meta:
@@ -10,6 +10,12 @@ class MarcaForm(forms.ModelForm):
     imagen = forms.ImageField(required=False)
     class Meta:
         model = Marca
+        fields = '__all__' #['cod_marca', 'nombre', etc]
+        
+class ModeloForm(forms.ModelForm):
+    imagen = forms.ImageField(required=False)
+    class Meta:
+        model = Modelo
         fields = '__all__' #['cod_marca', 'nombre', etc]
 
 

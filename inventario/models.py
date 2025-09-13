@@ -49,4 +49,4 @@ class Modelo(models.Model):
     imagen = models.ImageField(upload_to='modelo ', null=True)
     
     def __str__(self):
-        return f'{self.cod_modelo} - {self.cod_veh} - {self.descripcion or 'Sin desc.'}'
+        return f'{self.cod_modelo} - {self.marca} - {self.cod_veh} - {self.descripcion or 'Sin desc.'}'
