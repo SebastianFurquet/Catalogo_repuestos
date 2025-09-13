@@ -5,8 +5,8 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 
-from .models import Clase, Marca, Modelo
-from .forms import ClaseForm, MarcaForm, ModeloForm
+from .models import Clase, Marca, Modelo, Parte
+from .forms import ClaseForm, MarcaForm, ModeloForm, ParteForm
 
 # Create your views here.
 
@@ -276,3 +276,65 @@ class ModeloDeleteView(LoginRequiredMixin, DeleteView):
     model = Modelo
     template_name = 'inventario/modelo/modelo_confirm_delete.html'
     success_url = reverse_lazy('modelo_list')
+
+
+# ***************************************************************************************
+#/////////////////////////////---- PARTE ----//////////////////////////////////////////
+
+# Clase Basada en vista LISTA + BUSQUEDA
+
+class ParteListView(ListView):
+    model = Parte
+    template_name = 'inventario/parte/parte_list.html'
+    context_object_name = 'parte'
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        busqueda = self.request.GET.get('busqueda', None)
+        if busqueda:
+            queryset = queryset.filter(
+                Q(cod_parte__icontains=busqueda) | # Con el modulo Q puedo combinar la busqueda de varios campos
+                Q(nombre__icontains=busqueda)
+            )
+        return queryset    
+    
+
+# Clase Basada en vista para CREAR-FORM
+
+class ParteCreateView(LoginRequiredMixin, CreateView):
+    model = Parte
+    form_class = ParteForm
+    template_name = 'inventario/parte/parte_form.html'
+    success_url = reverse_lazy('parte_list')
+    
+    def form_valid(self, form):
+        if self.request.user.is_authenticated:
+            form.instance.user = self.request.user
+        else:
+            form.add_error(None, 'No se puede guardar el registro porque no ha iniciado sesión')
+            return self.form_invalid(form)
+        return super().form_valid(form)
+    
+
+# Clase Basada en vista para DETALLE
+
+#class ParteDetailView(DetailView): # por defecto usa el contexto object
+#    model = Parte
+#    template_name = 'inventario/parte/parte_detail.html'
+#    #context_object_name = 'marca'
+
+
+# Clase Basada en vista para UPDATE
+
+class ParteUpdateView(LoginRequiredMixin, UpdateView):
+    model = Parte
+    form_class = ParteForm
+    template_name = 'inventario/parte/parte_update.html'
+    success_url = reverse_lazy('parte_list')
+
+# ELIMINAR
+
+class ParteDeleteView(LoginRequiredMixin, DeleteView):
+    model = Parte
+    template_name = 'inventario/parte/parte_confirm_delete.html'
+    success_url = reverse_lazy('parte_list')

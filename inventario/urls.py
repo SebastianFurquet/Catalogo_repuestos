@@ -58,6 +58,21 @@ urlpatterns = [
     # ELIMINACION
     path('modelos/delete/<int:pk>',views.ModeloDeleteView.as_view(), name='modelo_delete'),
     
+    # ---------------------------------------------// MODELOS // -----------------------------------------------
+    # LISTA
+    path('partes/', views.ParteListView.as_view() , name='parte_list'),
     
+    # CREACION
+    path('partes/from', views.ParteCreateView.as_view(), name='parte_form' ),
+    
+    # DETALLE
+    #path('partes/detail/<int:pk>',views.ParteDetailView.as_view(), name='parte_detail'), 
+    
+    # ACTUALIZACIONN
+    path('partes/update/<int:pk>',views.ParteUpdateView.as_view(), name='parte_update'),
+    
+    # ELIMINACION
+    path('partes/delete/<int:pk>',views.ParteDeleteView.as_view(), name='parte_delete'),
+
 
 ]

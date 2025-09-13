@@ -1,28 +1,26 @@
 {% extends "inventario/base.html" %}
 
-{% block title %} Fromulario de Marcas {% endblock  %}
+{% block title %} Fromulario de Partes {% endblock  %}
 
 {% block content_title %}
 <div class="container text-center">
-    <h1>Formulario para agregar Marcas </h1>
+    <h1>Formulario para agregar Partes del vehiculo</h1>
 </div>
 {% endblock content_title %}
 
 {% block content %}
 <div class="container text-center mt-5">
     <div class='d-flex flex-column align-items-center' >
-        <form action="{% url "marca_form" %}" method="POST" enctype ="multipart/form-data">
+        <form action="{% url "parte_form" %}"  method="POST">
             {% csrf_token %}
 
             <table class="table table-light table-striped">
             {{ form.as_table }}
             </table>
 
-            <input type="submit" value="Agregar Marca" class='btn btn-success mt-3'>
-            <a href="{% url "marca_list" %}"class='btn btn-danger mt-3 '> Cancelar </a>
+            <input type="submit" value="Agregar Parte" class='btn btn-success mt-3'>
+            <a href="{% url "parte_list" %}"class='btn btn-danger mt-3 '> Cancelar </a>
         </form>
     </div>
 </div>
-
-
 {% endblock content %}

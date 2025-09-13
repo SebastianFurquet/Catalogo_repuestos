@@ -1,0 +1,28 @@
+{% extends "inventario/base.html" %}
+
+{% block title %} Actualizacion de Partes {% endblock  %}
+
+{% block content_title %}
+<div class="container text-center">
+    <h1>Actualizacion</h1>
+</div>
+{% endblock content_title %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="d-flex flex-column align-items-center" >
+
+        <form action="{% url 'parte_update' parte.id %}" method="POST">
+
+            {% csrf_token %}
+
+            <table class="table table-light table-striped">
+                {{ form.as_table }}
+            </table>
+
+            <input type="submit" value="Guardar Cambios" class='btn btn-success mt-3'> {% comment %}  con esto se guardan los cambios {% endcomment %}
+            <a href="{% url "parte_list" %}"class='btn btn-danger mt-3 '> Volver </a>
+        </form>
+    </div>
+</div>
+{% endblock content %}
