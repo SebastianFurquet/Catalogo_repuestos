@@ -11,7 +11,7 @@
 {% block content %}
 
 <div class="container mt-5">
-    <form action="{% url 'marca_update' marca.id %}" method="POST" enctype="multipart/form-data">
+    <form action="{% url 'marca_update' marca.id %}" method="POST" enctype="multipart/form-data"> {% comment %} >>>> cambiar la URL <<<<  {% endcomment %}
     {% csrf_token %}
 
     <!-- Fila con dos columnas: izquierda (tabla), derecha (imagen) -->

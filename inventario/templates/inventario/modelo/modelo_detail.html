@@ -4,31 +4,34 @@
 
 {% block content_title %}
 <div class="container text-center">
-    <h1>Detalle</h1>
+    <h1>Detalle del Modelo</h1>
 </div>
 {% endblock content_title %}
 
 {% block content %}
 
 <div class='container mt-5'>
-    <div class='row col-12' >
+    <div class='row col-auto' >
         <table class="table table-light table-striped">
             <thead class="table-info"> <!-- estos son los encabezados de la tabla -->
-                <tr class= "text-center">
+                <tr class= "text-center align-middle">
                     <th>Cod Modelo</th>
-                    <th>Clase</th>
+                    <th>Cod Clase</th>
+                    <th>Tipo Clase</th>
                     <th>Marca</th>
                     <th>Modelo</th>
                     <th>Cod Vehiculo</th>
                     <th>Fecha Creacion</th>
                     <th>Fecha Modificacion</th>
+                    <th>Imagen</th>
                 </tr>
             </thead>
             <tbody> <!-- Cuerpo de la tabla filas y columnas -->
-                <tr class= "text-center align-middle">
+                <tr class= "text-center align-middle ">
                     <td>{{ object.cod_modelo }}</td>
-                    <td>{{ object.clase }}</td>
-                    <td>{{ object.marca }}</td>
+                    <td>{{ object.clase.cod_clase }}</td>
+                    <td>{{ object.clase.nombre }}</td>
+                    <td>{{ object.marca.nombre }}</td>
                     <td>{{ object.descripcion }}</td>
                     <td>{{ object.cod_veh }}</td>
                     <td>{{ object.fecha_creacion }} </td>

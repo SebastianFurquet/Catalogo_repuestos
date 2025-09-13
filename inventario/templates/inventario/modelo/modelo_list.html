@@ -11,8 +11,6 @@
 
 {% block content %}
 
-
-
 <!-- BARRA DE BUSQUEDA-->
 <div class='container my-3' >
     <div class='row justify-content-center'>
@@ -40,7 +38,8 @@
         <tbody class= "text-center align-middle"> <!-- Cuerpo de la tabla filas y columnas -->                                                         <!-- CAMBIAR MODELO -->
             {% for modelo in modelo %}
                 <tr>
-                    <td>{{ modelo.nombre }}</td>
+                    <td>{{ modelo.marca.nombre }}</td>
+                    <td>{{ modelo.descripcion }}</td>
                     <td>
                         <a href="{% url "modelo_detail" modelo.id %}" class='btn btn-sm btn-info'>Detalle</a>
                         <a href="{% url 'modelo_update' modelo.id %}" class='btn btn-sm btn-warning'>Modificar</a>

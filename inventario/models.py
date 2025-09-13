@@ -5,20 +5,20 @@ from django.db import models
 # SAP_COD_CLASE
 
 class Clase(models.Model): 
-    cod_clase = models.IntegerField(max_length=10)
+    cod_clase = models.PositiveIntegerField(max_length=10, unique=True)
     nombre = models.CharField(max_length=100)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
     
     def __str__(self): # ------------------------------------------->>>> el str define como se mostrara el objeto o que se vera en el Admin de Django.
-        return f'{self.cod_clase} - {self.nombre} - {self.fecha_creacion} - {self.fecha_modificacion} '
+        return f'{self.cod_clase} - {self.nombre} '
 
 
 # ********************************************************************
 # SAP_COD_MARCA
 
 class Marca(models.Model): 
-    cod_marca = models.IntegerField(max_length=10)
+    cod_marca = models.IntegerField(max_length=10, unique=True)
     nombre = models.CharField(max_length=100)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
@@ -40,13 +40,27 @@ class Marca(models.Model):
 
 class Modelo(models.Model):
     cod_modelo = models.IntegerField(max_length=20)
-    clase = models.IntegerField(max_length=10) 
-    marca = models.CharField(max_length=100)
+    # ForeignKey → esto habilita el <select> con las opciones ya cargadas
+    clase = models.ForeignKey(Clase, on_delete=models.PROTECT, related_name='modelos') 
+    marca = models.ForeignKey(Marca, on_delete=models.PROTECT, related_name='modelos')
     descripcion = models.CharField(max_length=200, blank=True)
     cod_veh = models.IntegerField(max_length=10)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
-    imagen = models.ImageField(upload_to='modelo ', null=True)
+    imagen = models.ImageField(upload_to='modelo', blank=True, null=True)
     
     def __str__(self):
-        return f'{self.cod_modelo} - {self.marca} - {self.cod_veh} - {self.descripcion or 'Sin desc.'}'
+        return f'{self.cod_modelo} - {self.clase}- {self.marca} - {self.cod_veh} - {self.descripcion or 'Sin desc.'}'
+
+
+# ********************************************************************
+
+# SAP_PARTES (puerta, faro, paragolpes…)
+
+class Parte(models.Model):
+    cod_parte = models.CharField(max_length=10, unique=True)
+    nombre = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return f'{self.cod_parte} - {self.nombre}'
+

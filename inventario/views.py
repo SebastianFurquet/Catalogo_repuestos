@@ -223,12 +223,15 @@ class ModeloListView(ListView):
     context_object_name = 'modelo'
     
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().select_related('marca', 'clase').order_by('cod_modelo')
         busqueda = self.request.GET.get('busqueda', None)
         if busqueda:
             queryset = queryset.filter(
-                Q(marca__icontains=busqueda) | # Con el modulo Q puedo combinar la busqueda de varios campos
-                Q(descripcion__icontains=busqueda)
+                Q(descripcion__icontains=busqueda) |
+                Q(marca__nombre__icontains=busqueda) |   # FK → campo texto del relacionado
+                Q(clase__nombre__icontains=busqueda) |   # FK → idem
+                Q(cod_modelo__icontains=busqueda) |      # si es CharField
+                Q(cod_veh__icontains=busqueda)           # si es CharField
             )
         return queryset    
     

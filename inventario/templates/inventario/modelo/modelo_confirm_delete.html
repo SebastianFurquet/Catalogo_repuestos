@@ -4,7 +4,7 @@
 
 {% block content_title %}
     <div class="container text-center">
-        <h1>Eliminar</h1>
+        <h1>Desea eliminar:</h1>
     </div>
 {% endblock content_title %}
 
@@ -12,10 +12,16 @@
 
 <div class='container text-center mt-5'>
     <div class='d-flex flex-column align-items-center'>
-        <p class='fs-3'>Desea eliminar: </p>
 
         <ul class= "list-unstyled">
-            <li class='fs-5' >{{ object.cod_veh }} - {{ object.marca }} - {{ object.descripcion }}</li> {% comment %} uso contexto por defecto OBJECT en MarcaDeleteView {% endcomment %}
+            <li class='fs-5' >{{ object.cod_veh }} - {{ object.marca.nombre }} - {{ object.descripcion }}</li> {% comment %} uso contexto por defecto OBJECT en MarcaDeleteView {% endcomment %}
+            <li class= 'mt-5'>
+                {% if object.imagen %}
+                <img src="{{ object.imagen.url }}" alt="{{ object.imagen }}" class="img-thumbnail"style="max-height:100px;" >
+                {% else %}
+                -
+                {% endif %}
+            </li>
         </ul>
 
         <div class='d-flex gap-5 mt-5'>
