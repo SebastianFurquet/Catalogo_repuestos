@@ -5,7 +5,10 @@ urlpatterns = [
     
     
     #path('', views.base, name='base'),
-    path('', views.index, name='index'),
+    #path('', views.index, name='index'),
+    # Catalogo
+    path('',views.CatalogoListView.as_view(), name='index'),
+    
     path('about/', views.about, name='about'),
     # ---------------------------------------------// CLASES // -----------------------------------------------
     # LISTA
@@ -106,6 +109,5 @@ urlpatterns = [
     # ELIMINACION
     path('estructuras/delete/<int:pk>',views.EstructuraDeleteView.as_view(), name='estructura_delete'),
 
-        # Catalogo
-    path('estructuras/detail/catalogo',views.CatalogoListView.as_view(), name='index'),
+
 ]

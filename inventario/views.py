@@ -13,8 +13,8 @@ from .forms import ClaseForm, MarcaForm, ModeloForm, ParteForm, ElementoForm, Es
 def base(request):
     return render(request, 'inventario/base.html')
 
-def index(request):
-    return render(request, 'inventario/index.html')
+# def index(request):
+#     return render(request, 'inventario/index.html')
 
 def about(request):
     return render(request, 'inventario/about.html')
