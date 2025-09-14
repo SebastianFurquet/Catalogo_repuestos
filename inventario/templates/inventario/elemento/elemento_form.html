@@ -1,0 +1,30 @@
+{% extends "inventario/base.html" %}
+
+{% block title %} Fromulario de Elementos {% endblock  %}
+
+{% block content_title %}
+<div class="container text-center">
+    <h1>Formulario para agregar Elementos </h1>
+</div>
+{% endblock content_title %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <div class='d-flex flex-column align-items-center' >
+
+        <form action="{% url "elemento_form" %}" method="POST" enctype ="multipart/form-data">
+            {% csrf_token %}
+
+            <table class="table table-light table-striped">
+            {{ form.as_table }}
+            </table>
+            
+            <input type="submit" value="Agregar Elemento" class='btn btn-success mt-3'>
+            <a href="{% url "elemento_list" %}"class='btn btn-danger mt-3 '> Cancelar </a>
+        </form>
+
+    </div>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,37 @@
+{% extends "inventario/base.html" %}
+
+{% block title %} Eliminacion de Elementos {% endblock  %}
+
+{% block content_title %}
+    <div class="container text-center">
+        <h1>Desea eliminar:</h1>
+    </div>
+{% endblock content_title %}
+
+{% block content %}
+
+<div class='container text-center mt-5'>
+    <div class='d-flex flex-column align-items-center'>
+
+        <ul class= "list-unstyled text-start fs-5">
+
+            <li ><strong>Cod Elemento:</strong> {{ object.cod_elemento }}</li>
+            <li ><strong>Clase:</strong> {{ object.clase.nombre }}</li>
+            <li ><strong>Parte:</strong> {{ object.parte.nombre }}</li>
+            <li ><strong>Nombre:</strong> {{ object.nombre }}</li>
+        </ul>
+
+        <div class='d-flex gap-5 mt-5'>
+            
+            <form action="{% url "elemento_delete" elemento.id %}" method='POST' >
+                {% csrf_token %}
+                <input type='submit' value='Eliminar' class='btn btn-danger'>
+            </form>
+            
+            <a href="{% url "elemento_list" %}" class='btn btn-primary'>Volver</a>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

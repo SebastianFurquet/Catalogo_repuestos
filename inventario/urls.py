@@ -58,7 +58,7 @@ urlpatterns = [
     # ELIMINACION
     path('modelos/delete/<int:pk>',views.ModeloDeleteView.as_view(), name='modelo_delete'),
     
-    # ---------------------------------------------// MODELOS // -----------------------------------------------
+    # ---------------------------------------------// PARTES // -----------------------------------------------
     # LISTA
     path('partes/', views.ParteListView.as_view() , name='parte_list'),
     
@@ -73,6 +73,22 @@ urlpatterns = [
     
     # ELIMINACION
     path('partes/delete/<int:pk>',views.ParteDeleteView.as_view(), name='parte_delete'),
+    
+    # ---------------------------------------------// ELEMENTOS // -----------------------------------------------
+    # LISTA
+    path('elemetos/', views.ElementoListView.as_view() , name='elemento_list'),
+    
+    # CREACION
+    path('elemetos/from', views.ElementoCreateView.as_view(), name='elemento_form' ),
+    
+    # DETALLE
+    path('elemetos/detail/<int:pk>',views.ElementoDetailView.as_view(), name='elemento_detail'), 
+    
+    # ACTUALIZACIONN
+    path('elemetos/update/<int:pk>',views.ElementoUpdateView.as_view(), name='elemento_update'),
+    
+    # ELIMINACION
+    path('elemetos/delete/<int:pk>',views.ElementoDeleteView.as_view(), name='elemento_delete'),
 
 
 ]

@@ -1,0 +1,61 @@
+{% extends "inventario/base.html" %}
+
+{% block title %} Listado de Elementos {% endblock  %}
+
+{% block content_title %}
+    <div class="container text-center">
+        <h1>Elementos</h1>
+    </div>
+{% endblock content_title %}
+
+
+{% block content %}
+
+<!-- BARRA DE BUSQUEDA-->
+<div class='container my-3' >
+    <div class='row justify-content-center'>
+        <div class="col-auto">
+            <a href="{% url "elemento_form" %}" class="btn btn-primary ">Agregar Elemento</a>                             <!-- CAMBIAR URL-->
+        </div>
+        <div class="col-auto">
+        <form action="{% url "elemento_list" %}" method='GET' class='d-flex'>                                          <!-- CAMBIAR URL-->
+            <input type="text" name='busqueda' placeholder='Buscar' type='submit' class='form-control'>
+        </form>
+        </div>
+    </div>
+</div>
+
+<div class='container col-6 mt-0 py-2 d-flex flex-column justify-content-center'>
+    <div class='row  '>
+        <table class="table table-light table-striped">
+        <thead class="table-info"> <!-- estos son los encabezados de la tabla -->
+            <tr class= "text-center align-middle">
+                <th>Cod Elemento</th>
+                <th>Nombre</th> 
+                <th>Parte</th> 
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody class= "text-center align-middle"> <!-- Cuerpo de la tabla filas y columnas -->                                                         <!-- CAMBIAR MODELO -->
+            {% for elemento in elemento %}
+                <tr>
+                    <td>{{ elemento.cod_elemento }}</td>
+                    <td>{{ elemento.nombre }}</td>
+                    <td>{{ elemento.parte.nombre }}</td>
+                    <td>
+                        <a href="{% url "elemento_detail" elemento.id %}" class='btn btn-sm btn-info'>Detalle</a>
+                        <a href="{% url 'elemento_update' elemento.id %}" class='btn btn-sm btn-warning'>Modificar</a>
+                        <a href="{% url "elemento_delete" elemento.id %}" class='btn btn-sm btn-danger'>Eliminar</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="6"> Sin resultados</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+
+
+
+{% endblock content %}

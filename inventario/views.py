@@ -5,8 +5,8 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 
-from .models import Clase, Marca, Modelo, Parte
-from .forms import ClaseForm, MarcaForm, ModeloForm, ParteForm
+from .models import Clase, Marca, Modelo, Parte, Elemento
+from .forms import ClaseForm, MarcaForm, ModeloForm, ParteForm, ElementoForm
 
 # Create your views here.
 
@@ -338,3 +338,68 @@ class ParteDeleteView(LoginRequiredMixin, DeleteView):
     model = Parte
     template_name = 'inventario/parte/parte_confirm_delete.html'
     success_url = reverse_lazy('parte_list')
+    
+    
+
+# ***************************************************************************************
+#/////////////////////////////---- ELEMENTOS ----//////////////////////////////////////////
+
+# Clase Basada en vista LISTA + BUSQUEDA
+
+class ElementoListView(ListView):
+    model = Elemento
+    template_name = 'inventario/elemento/elemento_list.html'
+    context_object_name = 'elemento'
+    
+    def get_queryset(self):
+        queryset = super().get_queryset().select_related('parte', 'clase').order_by('cod_elemento')
+        busqueda = self.request.GET.get('busqueda', None)
+        if busqueda:
+            queryset = queryset.filter(
+                Q(cod_elemento__icontains=busqueda) |
+                Q(parte__nombre__icontains=busqueda) |   # FK → campo texto del relacionado
+                Q(clase__nombre__icontains=busqueda) |   # FK → idem
+                Q(nombre__icontains=busqueda)     
+            )
+        return queryset    
+    
+
+# Clase Basada en vista para CREAR-FORM
+
+class ElementoCreateView(LoginRequiredMixin, CreateView):
+    model = Elemento
+    form_class = ElementoForm
+    template_name = 'inventario/elemento/elemento_form.html'
+    success_url = reverse_lazy('elemento_list')
+    
+    def form_valid(self, form):
+        if self.request.user.is_authenticated:
+            form.instance.user = self.request.user
+        else:
+            form.add_error(None, 'No se puede guardar el registro porque no ha iniciado sesión')
+            return self.form_invalid(form)
+        return super().form_valid(form)
+    
+
+# Clase Basada en vista para DETALLE
+
+class ElementoDetailView(DetailView): # por defecto usa el contexto object
+    model = Elemento
+    template_name = 'inventario/elemento/elemento_detail.html'
+    #context_object_name = 'marca'
+
+
+# Clase Basada en vista para UPDATE
+
+class ElementoUpdateView(LoginRequiredMixin, UpdateView):
+    model = Elemento
+    form_class = ElementoForm
+    template_name = 'inventario/elemento/elemento_update.html'
+    success_url = reverse_lazy('elemento_list')
+
+# ELIMINAR
+
+class ElementoDeleteView(LoginRequiredMixin, DeleteView):
+    model = Elemento
+    template_name = 'inventario/elemento/elemento_confirm_delete.html'
+    success_url = reverse_lazy('elemento_list')

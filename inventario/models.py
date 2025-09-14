@@ -5,7 +5,7 @@ from django.db import models
 # SAP_COD_CLASE
 
 class Clase(models.Model): 
-    cod_clase = models.PositiveIntegerField(max_length=10, unique=True)
+    cod_clase = models.PositiveIntegerField(unique=True)
     nombre = models.CharField(max_length=100)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
@@ -60,7 +60,24 @@ class Modelo(models.Model):
 class Parte(models.Model):
     cod_parte = models.CharField(max_length=10, unique=True)
     nombre = models.CharField(max_length=100)
-    
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_modificacion = models.DateTimeField(auto_now=True)
     def __str__(self):
         return f'{self.cod_parte} - {self.nombre}'
 
+# ********************************************************************
+
+# SAP_ELEMENTOS (granularidad debajo de Parte)
+
+class Elemento(models.Model):  
+    cod_elemento = models.CharField(max_length=20)
+    clase = models.ForeignKey(Clase, on_delete=models.PROTECT, related_name="elementos")
+    parte = models.ForeignKey(Parte, on_delete=models.PROTECT, related_name="elementos")
+    nombre = models.CharField(max_length=150)
+    imagen = models.ImageField(upload_to='elemento', blank=True, null=True)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_modificacion = models.DateTimeField(auto_now=True)
+    
+    
+    def __str__(self):
+        return f"{self.cod_elemento} - {self.nombre}"

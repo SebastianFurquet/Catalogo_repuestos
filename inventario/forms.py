@@ -1,5 +1,5 @@
 from django import forms
-from .models import Clase, Marca, Modelo, Parte
+from .models import Clase, Marca, Modelo, Parte, Elemento
 
 
 class ClaseForm(forms.ModelForm):
@@ -38,3 +38,23 @@ class ParteForm(forms.ModelForm):
     class Meta:
         model = Parte
         fields = '__all__' 
+
+
+
+class ElementoForm(forms.ModelForm):
+    #imagen = forms.ImageField(required=False)
+    
+    clase = forms.ModelChoiceField(
+        queryset=Clase.objects.order_by("cod_clase"),   # orden alfabético en el combo
+        empty_label="Seleccione una clase",          # placeholder de la opción vacía
+        widget=forms.Select(attrs={"class": "form-select"})  # estilo Bootstrap
+    )
+    parte = forms.ModelChoiceField(
+        queryset=Parte.objects.order_by("cod_parte"),
+        empty_label="Seleccione una ubicacion",
+        widget=forms.Select(attrs={"class": "form-select"})
+    )
+
+    class Meta:
+        model = Elemento
+        fields = ["cod_elemento", "clase", "parte", "nombre"]
