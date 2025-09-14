@@ -1,13 +1,92 @@
 {% extends "inventario/base.html" %}
 
-{% block title %} Inicio {% endblock  %}
+{% block title %} Catalogo de Repuestos {% endblock  %}
 
 {% block content_title %}
-<h1>Bienvenidos al Catalogo de repuestos.</h1>
+    <div class="container text-center">
+        <h1>Catalogo de repuestos</h1>
+    </div>
 {% endblock content_title %}
+
 
 {% block content %}
 
+<div class='container my-3' >
+<div class='row justify-content-center'>
+
+    <div class="col-auto">
+    <form action="{% url "index" %}" method='GET' class='d-flex'>                                          <!-- CAMBIAR URL-->
+        <input type="text" name='busqueda' placeholder='Buscar' type='submit' class='form-control'>
+    </form>
+    </div>
+</div>
+</div>
+
+<div class='container mt-0 py-2 d-flex flex-column justify-content-center'>
+    <div class='row  '>
+    <table class="table table-light table-striped">
+    <thead class="table-info"> <!-- estos son los encabezados de la tabla -->
+        <tr class= "text-center align-middle">
+
+            <th>Marca</th>
+            <th>Modelo</th> 
+            <th>Parte</th> 
+            <th>Elemento</th> 
+            <th>Cod Elemento</th> 
+            <th>Nro Pieza</th> 
+            <th>Precio</th> 
+            <th>Imagen</th> 
+            
+
+        </tr>
+    </thead>
+    <tbody class= "text-center align-middle"> <!-- Cuerpo de la tabla filas y columnas -->                                                         <!-- CAMBIAR MODELO -->
+        {% for estructura in estructura %}
+            <tr>
+                
+                <td>{{ estructura.marca.nombre }}</td>
+                <td>{{ estructura.modelo.descripcion }}</td>
+                <td>{{ estructura.parte.nombre }}</td>
+                <td>{{ estructura.elemento.nombre }}</td>
+                <td>{{ estructura.elemento.cod_elemento }}</td>
+                <td>{{ estructura.nro_pieza }}</td>
+                <td>
+                    {% if estructura.precio is null  %}
+                        Sin Valor
+                    {% else %}
+                        $ {{ estructura.precio }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if estructura.imagen %}
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalImagen{{ estructura.id }}"> Ver Imagen </button>
+                    <div class="modal fade" id="modalImagen{{ estructura.id }}" tabindex="-1" aria-labelledby="modalLabel{{ estructura.id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="modalLabel{{ estructura.id }}">Imagen de {{ estructura.modelo.descripcion }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                            <img src="{{ estructura.imagen.url }}" alt="Imagen de {{ estructura.modelo.descripcion }}" class="img-fluid rounded">
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    {% comment %} <a href="{{ estructura.imagen.url }}" target="_blank" class="btn btn-primary btn-sm"> Ver Imagen</a> {% endcomment %}
+                    {% comment %} <img src="{{ estructura.imagen.url }}" alt="{{ estructura.imagen }}" class="img-thumbnail"style="max-height:80px;" > {% endcomment %}
+                    {% else %}
+                    -
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+                <tr><td colspan="8"class="text-center text-muted py-3">Sin resultados</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+    </div>
+</div>
+
+
 {% endblock content %}
-
-

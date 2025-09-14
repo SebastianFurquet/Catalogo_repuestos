@@ -1,0 +1,62 @@
+{% extends "inventario/base.html" %}
+
+{% block title %} Actualizacion de Piezas {% endblock  %}
+
+{% block content_title %}
+<div class="container text-center">
+    <h1>Actualizacion de pieza</h1>
+</div>
+{% endblock content_title %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <form action="{% url 'estructura_update' estructura.id %}" method="POST" enctype="multipart/form-data"> {% comment %} >>>> cambiar la URL + ID <<<<  {% endcomment %}
+    {% csrf_token %}
+
+    <!-- Fila con dos columnas: izquierda (tabla), derecha (imagen) -->
+    <div class="row justify-content-center align-items-start g-4">
+
+            <!-- Columna izquierda: la tabla con los campos -->
+        <div class="col-12 col-md-7 col-lg-6">
+
+            <table class="table table-light table-striped m-0">
+                <tr>
+                    <th>Cod veh:</th>
+                    <td>
+                    <input id="codveh_readonly" class="form-control" value="{{ form.instance.cod_veh }}" readonly>
+                    </td>
+                </tr>
+                {{ form.as_table }}
+            </table>
+
+
+                <!-- Fila completa para los botones -->
+            <div class="col-12 d-flex gap-2 justify-content-center mt-2">
+                <input type="submit" value="Guardar Cambios" class="btn btn-success"> {% comment %}  con esto se guardan los cambios {% endcomment %}
+                <a href="{% url 'estructura_list' %}" class="btn btn-danger">Volver</a> {% comment %} >>>> cambiar la URL <<<<  {% endcomment %}
+            </div>
+        </div>
+
+        <!-- Columna derecha: la imagen de vista previa -->
+        <div class="col-12 col-md-5 col-lg-4 d-flex justify-content-center">
+
+        {% if form.instance.imagen %}
+
+            <figure class="text-center m-0">
+            <img
+                src="{{ form.instance.imagen.url }}"
+                alt="{{ form.instance.nombre }}"
+                class="img-fluid border rounded shadow-sm"
+                style="max-width: 400px; max-height: 400px; object-fit: contain;"
+            >
+            <figcaption class="mt-2 text-muted small">Vista previa</figcaption>
+            </figure>
+            {% else %}
+                <div class="alert alert-secondary w-100 text-center">Sin imagen cargada</div>
+            {% endif %}
+        </div>
+    </div>
+    </form>
+</div>
+{% endblock content %}

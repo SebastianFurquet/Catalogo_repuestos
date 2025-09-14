@@ -1,0 +1,46 @@
+{% extends "inventario/base.html" %}
+
+{% block title %} Eliminacion de Piezas {% endblock  %}
+
+{% block content_title %}
+    <div class="container text-center">
+        <h1>Desea eliminar:</h1>
+    </div>
+{% endblock content_title %}
+
+{% block content %}
+
+<div class='container text-center mt-5'>
+    <div class='d-flex flex-column align-items-center'>
+
+        <ul class= "list-unstyled fs-5 text-start"> {% comment %} uso contexto por defecto OBJECT en MarcaDeleteView {% endcomment %}
+            <li ><strong>Pieza:</strong> {{ object.elemento.nombre}}</li>
+            <li ><strong>Nro Pieza:</strong> {{ object.nro_pieza }}</li>
+            <li ><strong>Precio:</strong> {{ object.precio }}</li>
+            <li ><strong>Parte:</strong> {{ object.parte.nombre }}</li>
+            <li ><strong>Marca:</strong> {{ object.marca.nombre }}</li>
+            <li ><strong>Modelo:</strong> {{ object.modelo.descripcion }}</li>
+
+            <li class= 'mt-5'>
+                {% if object.imagen %}
+                <img src="{{ object.imagen.url }}" alt="{{ object.imagen }}" class="img-thumbnail" style="max-height:250px;" >
+                {% else %}
+                -
+                {% endif %}
+            </li>
+        </ul>
+
+        <div class='d-flex gap-5 mt-5'>
+            
+            <form action="{% url "estructura_delete" estructura.id %}" method='POST' >
+                {% csrf_token %}
+                <input type='submit' value='Eliminar' class='btn btn-danger'>
+            </form>
+            
+            <a href="{% url "estructura_list" %}" class='btn btn-primary'>Volver</a>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

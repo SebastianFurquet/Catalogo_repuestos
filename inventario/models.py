@@ -18,7 +18,7 @@ class Clase(models.Model):
 # SAP_COD_MARCA
 
 class Marca(models.Model): 
-    cod_marca = models.IntegerField(max_length=10, unique=True)
+    cod_marca = models.IntegerField(unique=True)
     nombre = models.CharField(max_length=100)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
@@ -39,18 +39,18 @@ class Marca(models.Model):
 
 
 class Modelo(models.Model):
-    cod_modelo = models.IntegerField(max_length=20)
+    cod_modelo = models.IntegerField()
     # ForeignKey → esto habilita el <select> con las opciones ya cargadas
     clase = models.ForeignKey(Clase, on_delete=models.PROTECT, related_name='modelos') 
     marca = models.ForeignKey(Marca, on_delete=models.PROTECT, related_name='modelos')
     descripcion = models.CharField(max_length=200, blank=True)
-    cod_veh = models.IntegerField(max_length=10)
+    cod_veh = models.IntegerField(unique=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
     imagen = models.ImageField(upload_to='modelo', blank=True, null=True)
     
     def __str__(self):
-        return f'{self.cod_modelo} - {self.clase}- {self.marca} - {self.cod_veh} - {self.descripcion or 'Sin desc.'}'
+        return f"{self.cod_modelo} - {self.clase}- {self.marca} - {self.cod_veh} - {self.descripcion or 'Sin desc.'}"
 
 
 # ********************************************************************
@@ -81,3 +81,34 @@ class Elemento(models.Model):
     
     def __str__(self):
         return f"{self.cod_elemento} - {self.nombre}"
+
+
+# ********************************************************************
+
+# Esta tabla modela SAP_BRAN: une Clase + Marca + Modelo + Parte + Elemento y lo junta con `nro_pieza` y `precio`
+
+class Estructura(models.Model):
+    clase = models.ForeignKey(Clase, on_delete=models.PROTECT, related_name="estructuras")
+    marca = models.ForeignKey(Marca, on_delete=models.PROTECT, related_name="estructuras")
+    modelo = models.ForeignKey(Modelo, on_delete=models.PROTECT, related_name="estructuras")
+    cod_veh = models.IntegerField(null=True, blank=True, db_index=True)
+    parte = models.ForeignKey(Parte, on_delete=models.PROTECT, related_name="estructuras")
+    elemento = models.ForeignKey(Elemento, on_delete=models.PROTECT, related_name="estructuras")
+    
+    nro_pieza = models.CharField(max_length=50, blank=True, null=True)  ##
+    precio = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True) ##
+    imagen = models.ImageField(upload_to='estructura', blank=True, null=True)
+    
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_modificacion = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        """
+        Antes de guardar, sincronizo el cod_veh con el del Modelo elegido.
+        Así se evita cualquier des-sincronización.
+        """
+        self.cod_veh = self.modelo.cod_veh if self.modelo_id else None
+        super().save(*args, **kwargs)
+        
+    def __str__(self):
+        return f"{self.modelo} | {self.parte} | {self.elemento} | pieza={self.nro_pieza or '-'}"

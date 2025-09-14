@@ -89,6 +89,23 @@ urlpatterns = [
     
     # ELIMINACION
     path('elemetos/delete/<int:pk>',views.ElementoDeleteView.as_view(), name='elemento_delete'),
+    
+    # ---------------------------------------------// ESTRUCTURA // -----------------------------------------------
+    # LISTA
+    path('estructuras/', views.EstructuraListView.as_view() , name='estructura_list'),
+    
+    # CREACION
+    path('estructuras/from', views.EstructuraCreateView.as_view(), name='estructura_form' ),
+    
+    # DETALLE
+    path('estructuras/detail/<int:pk>',views.EstructuraDetailView.as_view(), name='estructura_detail'), 
+    
+    # ACTUALIZACIONN
+    path('estructuras/update/<int:pk>',views.EstructuraUpdateView.as_view(), name='estructura_update'),
+    
+    # ELIMINACION
+    path('estructuras/delete/<int:pk>',views.EstructuraDeleteView.as_view(), name='estructura_delete'),
 
-
+        # Catalogo
+    path('estructuras/detail/catalogo',views.CatalogoListView.as_view(), name='index'),
 ]
