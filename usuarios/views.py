@@ -29,7 +29,7 @@ def login_request(request):
                 
                 Avatar.objects.get_or_create(user=user)
                 
-                return redirect('clase_list')  # envía al usuario a la página inicial por ahora clase_list
+                return redirect('index')  # envía al usuario a la página inicial 
             else:
                 messages.error(request, 'Usuario o contraseña incorrectos')
                 return render(request, 'usuarios/login.html', {"formulario": formulario, 'mensaje': 'Usuario o contraseña incorrectos'})
@@ -114,11 +114,6 @@ class EditarContrasenia(PasswordChangeView):
     success_url = reverse_lazy('perfil')  # envía al usuario a la página perfil
     form_class = EditarContraseniaForm
 
-
-
-
-
-
 # -----------------------------------------------------------------------------------------------------    
     
     
@@ -131,7 +126,7 @@ def iniciar_sesion(request):
             usuario = formulario.get_user()
             
             login(request, usuario)
-            return redirect('clase_list') # envía al usuario a la página inicial por ahora clase_list        
+            return redirect('index') # envía al usuario a la página inicial por ahora clase_list        
     else:
         formulario = AuthenticationForm()
         return render(request, "usuarios/login.html", {"formulario": formulario})
